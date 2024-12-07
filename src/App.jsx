@@ -13,7 +13,8 @@ function App() {
   const [isLoading,setIsLoading] = useState(false)
   const [name,setName] = useState("");
   const [selectId,setSelectId] = useState("");
-  const [sort,setSort] = useState("All")
+  const [sort,setSort] = useState("All");
+  const [favouriteList,setFavouriteList] = useState([])
 
 
   /// Fetch CharacterList
@@ -37,6 +38,12 @@ function App() {
 setSelectId(id)
   };
 
+  function handelFavourite(char) {
+  setFavouriteList([...favouriteList,char]);
+  }
+
+  const IsAddedToFavList = favouriteList.map((item)=>item.id).includes(selectId);
+  
   //Sort Data
   let SortedData = characters;
   if(sort === "Dead"){
@@ -58,14 +65,14 @@ setSelectId(id)
   return (
     <div className='app container '>
       <Toaster/>
-      <Header sort={sort} setSort={setSort} name={name} setName={setName} ResultLength={characters.length} />
+      <Header favouriteList={favouriteList} sort={sort} setSort={setSort} name={name} setName={setName} ResultLength={SortedData.length} />
       <div className='main'>
       <CharacterList isLoading={isLoading} characters={SortedData} onSelectId={handelSelectId}/>
 
-      <CharacterDetail selectId={selectId} />
+      <CharacterDetail IsAddedToFavList={IsAddedToFavList} selectId={selectId} onAddFavourite={handelFavourite} />
       </div>
     </div>
   )
 }
 
-export default App
+export default App;

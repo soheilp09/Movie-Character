@@ -4,9 +4,10 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { SiMonster } from "react-icons/si";
+import { TiTick } from "react-icons/ti";
 
 
-function CharacterDetail({selectId}) {
+function CharacterDetail({selectId,onAddFavourite,IsAddedToFavList}) {
 
   const [character,setCharacter] = useState(null);
   const [episodes,setEpisodes] = useState([]);
@@ -55,7 +56,10 @@ function CharacterDetail({selectId}) {
             <p>{character.location.name}</p>
           </div>
           <div className="action">
-            <button className="btn btn--primary">Add to Favorite</button>
+            {!IsAddedToFavList ?  <button className="button-50" onClick={()=>onAddFavourite(character)} >Add to Favorite</button>
+            : <button className="button-49">Added to <TiTick/></button>
+          }
+           
           </div>
         </div>
       </div>
