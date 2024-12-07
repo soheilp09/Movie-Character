@@ -5,13 +5,14 @@ import Header from './components/Header';
 import CharacterList from './components/CharacterList';
 import CharacterDetail from './components/CharacterDetail';
 import axios from 'axios';
-import toast, { ToastBar, Toaster } from 'react-hot-toast';
+import toast, { Toaster } from 'react-hot-toast';
 
 function App() {
 
   const [characters,setCharacters] = useState([]);
   const [isLoading,setIsLoading] = useState(false)
   const [name,setName] = useState("");
+  const [selectId,setSelectId] = useState("");
 
 
   /// Fetch CharacterList
@@ -31,15 +32,20 @@ function App() {
   },[name]);
 
 
+  function handelSelectId(id){
+setSelectId(id)
+  }
+  
+
 
   return (
     <div className='app container '>
       <Toaster/>
       <Header name={name} setName={setName} ResultLength={characters.length} />
       <div className='main'>
-      <CharacterList isLoading={isLoading} characters={characters}/>
+      <CharacterList isLoading={isLoading} characters={characters} onSelectId={handelSelectId}/>
 
-      <CharacterDetail />
+      <CharacterDetail selectId={selectId} />
       </div>
     </div>
   )

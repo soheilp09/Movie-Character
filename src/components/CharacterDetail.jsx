@@ -3,7 +3,9 @@ import { character, episodes } from "../../data/data"
 import { FaRegArrowAltCircleUp } from "react-icons/fa";
 
 
-function CharacterDetail() {
+function CharacterDetail({selectId}) {
+
+  
   return (
     <div style={{flex:1}}>
       <div className="character-detail">
