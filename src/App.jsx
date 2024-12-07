@@ -16,7 +16,7 @@ function App() {
   const [name,setName] = useState("");
   const [selectId,setSelectId] = useState("");
   const [sort,setSort] = useState("All");
-  const [favouriteList,setFavouriteList] = useState([]);
+  const [favouriteList,setFavouriteList] = useState(()=> JSON.parse(localStorage.getItem("FAVOURITE")) || []);
   const [isModalOpen,setIsModalOpen] = useState(false)
 
 
@@ -36,6 +36,12 @@ function App() {
     fetchData();
   },[name]);
 
+  
+  // save Favourite list on localStorage
+  useEffect(()=>{
+    localStorage.setItem("FAVOURITE",JSON.stringify(favouriteList))
+  },[favouriteList]);
+
 
   function handelSelectId(id){
 setSelectId(id)
@@ -43,15 +49,14 @@ setSelectId(id)
   function handelFavourite(char) {
   setFavouriteList([...favouriteList,char]);
   };
-
   function handelDeleteFav(id){
 const DeleteCharacter = favouriteList.filter((item)=>item.id != id);
 setFavouriteList(DeleteCharacter)
-  }
+  };
 
 
 
-  const IsAddedToFavList = favouriteList.map((item)=>item.id).includes(selectId);
+const IsAddedToFavList = favouriteList.map((item)=>item.id).includes(selectId);
   
   //Sort Data
   let SortedData = characters;
