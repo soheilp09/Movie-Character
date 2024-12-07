@@ -1,5 +1,4 @@
 import { GiLizardman, GiWomanElfFace } from "react-icons/gi"
-import {  episodes } from "../../data/data"
 import { FaRegArrowAltCircleUp } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -10,6 +9,7 @@ import { SiMonster } from "react-icons/si";
 function CharacterDetail({selectId}) {
 
   const [character,setCharacter] = useState(null);
+  const [episodes,setEpisodes] = useState([])
 
   //Fetch A Single Character
   useEffect(()=>{
@@ -17,6 +17,13 @@ function CharacterDetail({selectId}) {
       try {
         const {data} = await axios.get(`https://rickandmortyapi.com/api/character/${selectId}`);
         setCharacter(data);
+
+        //Load Episodes
+        const episodeId = data.episode.map((e)=>e.split("/").at(-1));
+        const {data:episodes} = await axios.get(`https://rickandmortyapi.com/api/episode/${episodeId}`);
+        setEpisodes([episodes].flat().splice(0,6));
+
+        
       } catch (err) {
         toast(err.message);
       }
