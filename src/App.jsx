@@ -40,10 +40,13 @@ function App() {
   function handelSelectId(id){
 setSelectId(id)
   };
-
-
   function handelFavourite(char) {
   setFavouriteList([...favouriteList,char]);
+  };
+
+  function handelDeleteFav(id){
+const DeleteCharacter = favouriteList.filter((item)=>item.id != id);
+setFavouriteList(DeleteCharacter)
   }
 
 
@@ -71,7 +74,7 @@ setSelectId(id)
     <div className='app container '>
      <Modal  title={"Favourite List"} open={isModalOpen} setOpen={setIsModalOpen}>
       {favouriteList.map((item)=><Character key={item.id} item={item}>
-        <button className='icon'><MdDelete className='Dead' /></button>
+        <button className='icon'><MdDelete className='Dead'onClick={()=>handelDeleteFav(item.id)} /></button>
       </Character>)}
      </Modal>
       <Toaster/>
