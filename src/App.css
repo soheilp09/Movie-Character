@@ -192,6 +192,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  cursor: pointer;
+
 }
 
 .character-episodes .title .icon {
@@ -200,6 +202,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: all 1s ease-in-out;
 }
 
 .character-episodes h2 {
@@ -213,6 +216,7 @@
   justify-content: space-between;
   color: var(--slate-200);
   padding: 0.5rem 0;
+
   /* cursor: pointer; */
 }
 
@@ -252,4 +256,9 @@ font-size: xx-large;
 .eyeIcon{
   font-size: xx-large;
 
+}
+.iconDown{
+transform: rotate(180deg);
+background-color: var(--rose-500);
+border-radius: 40px;
 }

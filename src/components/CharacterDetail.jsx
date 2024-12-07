@@ -9,7 +9,8 @@ import { SiMonster } from "react-icons/si";
 function CharacterDetail({selectId}) {
 
   const [character,setCharacter] = useState(null);
-  const [episodes,setEpisodes] = useState([])
+  const [episodes,setEpisodes] = useState([]);
+  const [isopenList,setIsOpenList] = useState(true);
 
   //Fetch A Single Character
   useEffect(()=>{
@@ -59,18 +60,18 @@ function CharacterDetail({selectId}) {
         </div>
       </div>
       <div className="character-episodes">
-    <div className="title">
+    <div className="title" onClick={()=>setIsOpenList(!isopenList)}>
     <h2>List Of Episodes</h2>
-    <FaRegArrowAltCircleUp className="icon"/>
+    <FaRegArrowAltCircleUp className={`icon ${isopenList ? "iconDown" : ""}`}/>
     </div>
-<ul>
+{isopenList ? <ul>
   {episodes.map((item,index)=>(
     <li key={item.id}>
       <div>{index + 1}-{item.episode} : <strong>{item.name}</strong></div>
       <div className="badge badge--secondary">{item.air_date}</div>
     </li>
   ))}
-</ul>
+</ul> : ""}
       </div>
     </div>
   )
