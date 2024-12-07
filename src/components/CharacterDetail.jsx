@@ -1,11 +1,35 @@
 import { GiLizardman, GiWomanElfFace } from "react-icons/gi"
-import { character, episodes } from "../../data/data"
+import {  episodes } from "../../data/data"
 import { FaRegArrowAltCircleUp } from "react-icons/fa";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import toast from "react-hot-toast";
+import { SiMonster } from "react-icons/si";
 
 
 function CharacterDetail({selectId}) {
 
-  
+  const [character,setCharacter] = useState(null);
+
+  //Fetch A Single Character
+  useEffect(()=>{
+    async function FetchData() {
+      try {
+        const {data} = await axios.get(`https://rickandmortyapi.com/api/character/${selectId}`);
+        setCharacter(data);
+      } catch (err) {
+        toast(err.message);
+      }
+      
+    }
+
+  if(selectId) FetchData();
+
+  },[selectId]);
+
+  if(!character) return <div style={{display:"flex",justifyItems:"center",width:"40%"}}><h4>Please Select a <SiMonster/>onster !</h4></div>
+
+
   return (
     <div style={{flex:1}}>
       <div className="character-detail">
