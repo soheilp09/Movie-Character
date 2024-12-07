@@ -1,13 +1,30 @@
-import {allCharacters} from '../data/data'
-import { useState } from 'react';
+
+import { useEffect, useState } from 'react';
 import './App.css'
 import Header from './components/Header';
 import CharacterList from './components/CharacterList';
 import CharacterDetail from './components/CharacterDetail';
+import axios from 'axios';
 
 function App() {
 
-  const [characters,setCharacters] = useState(allCharacters);
+  const [characters,setCharacters] = useState([]);
+
+
+  /// Fetch CharacterList
+  useEffect(()=>{
+    async function fetchData() {
+      try {
+        const {data} = await axios("https://rickandmortyapi.com/api/character");
+        setCharacters(data.results);
+      } catch (err) {
+        console.log(err.response.data.error);
+      }
+    }
+    fetchData();
+  },[])
+
+
 
   return (
     <div className='app container '>
