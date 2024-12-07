@@ -2,8 +2,12 @@
 import { GiLizardman } from "react-icons/gi";
 import { GiWomanElfFace } from "react-icons/gi";
 import { FaEye } from "react-icons/fa";
+import Loading from "../UI/Loading";
 
-function CharacterList({characters}) {
+function CharacterList({characters,isLoading}) {
+
+  if(isLoading) return <div className="characters-list"><Loading/></div>;
+
   return (
     <div className='characters-list'>
       {characters.map((item)=>(

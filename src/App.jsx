@@ -9,16 +9,20 @@ import axios from 'axios';
 function App() {
 
   const [characters,setCharacters] = useState([]);
+  const [isLoading,setIsLoading] = useState(false)
 
 
   /// Fetch CharacterList
   useEffect(()=>{
     async function fetchData() {
       try {
+        setIsLoading(true);
         const {data} = await axios("https://rickandmortyapi.com/api/character");
         setCharacters(data.results);
       } catch (err) {
         console.log(err.response.data.error);
+      } finally{
+        setIsLoading(false);
       }
     }
     fetchData();
@@ -30,8 +34,7 @@ function App() {
     <div className='app container '>
       <Header ResultLength={characters.length} />
       <div className='main'>
-
-      <CharacterList characters={characters}/>
+      <CharacterList isLoading={isLoading} characters={characters}/>
 
       <CharacterDetail />
       </div>
