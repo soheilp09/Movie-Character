@@ -11,7 +11,9 @@ function CharacterList({characters,isLoading,onSelectId}) {
   return (
     <div className='characters-list'>
       {characters.map((item)=>(
-        <Character key={item.id} item={item} onSelectId={onSelectId}/>
+        <Character key={item.id} item={item} onSelectId={onSelectId}>
+            <button className='icon red' onClick={()=>onSelectId(item.id)}><FaEye className='eyeIcon'/></button>
+        </Character>
       ))}
 
     </div>
@@ -19,7 +21,7 @@ function CharacterList({characters,isLoading,onSelectId}) {
 };
 
 
-function Character({item,onSelectId}) {
+export function Character({item,children}) {
 return  <div className='list__item'>
   <img src={item.image} alt={item.name} />
   <h3 className='name'>
@@ -31,7 +33,7 @@ return  <div className='list__item'>
     <span> {item.status}-</span>
     <span>{item.species}</span>
   </div>
-  <button className='icon red' onClick={()=>onSelectId(item.id)}><FaEye className='eyeIcon'/></button>
+{children}
 </div>
   
 }

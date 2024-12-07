@@ -4,7 +4,7 @@ import { SiMonster } from "react-icons/si"
 
 
 
-function Header({ResultLength,setName,name,setSort,sort,favouriteList}) {
+function Header({ResultLength,setName,name,setSort,sort,favouriteList,open,setOpen}) {
     
     return (
       <div className='navbar' >
@@ -25,7 +25,7 @@ function Header({ResultLength,setName,name,setSort,sort,favouriteList}) {
           <div>
               <span>Found {ResultLength} Results</span>
           </div>
-          <button className="heart">
+          <button className="heart" onClick={()=>setOpen(!open)}>
               <BsHeart className="heartIcon"/>
               <span className="badge">{favouriteList.length}</span>
           </button>

@@ -79,8 +79,8 @@ button {
   width: 98%;
   min-height: 250px;
   position: absolute;
-  top: 50%;
-  left: 50%;
+  margin-top: 20rem;
+  left: 45%;
   transform: translate(-50%, -50%);
   background-color: var(--slate-900);
   padding: 1rem;
@@ -338,3 +338,4 @@ option{
     line-height: 88px;
   }
 }
+

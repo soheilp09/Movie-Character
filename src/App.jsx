@@ -1,11 +1,13 @@
-
 import { useEffect, useState } from 'react';
 import './App.css'
 import Header from './components/Header';
-import CharacterList from './components/CharacterList';
+import CharacterList, { Character } from './components/CharacterList';
 import CharacterDetail from './components/CharacterDetail';
 import axios from 'axios';
 import toast, { Toaster } from 'react-hot-toast';
+import Modal from './UI/Modal';
+import { MdDelete } from 'react-icons/md';
+
 
 function App() {
 
@@ -14,7 +16,8 @@ function App() {
   const [name,setName] = useState("");
   const [selectId,setSelectId] = useState("");
   const [sort,setSort] = useState("All");
-  const [favouriteList,setFavouriteList] = useState([])
+  const [favouriteList,setFavouriteList] = useState([]);
+  const [isModalOpen,setIsModalOpen] = useState(false)
 
 
   /// Fetch CharacterList
@@ -38,9 +41,12 @@ function App() {
 setSelectId(id)
   };
 
+
   function handelFavourite(char) {
   setFavouriteList([...favouriteList,char]);
   }
+
+
 
   const IsAddedToFavList = favouriteList.map((item)=>item.id).includes(selectId);
   
@@ -58,14 +64,18 @@ setSelectId(id)
   if(sort === "Male"){
     SortedData = characters.filter((item)=>item.gender === "Male")
   }
-  
-  
+
   
 
   return (
     <div className='app container '>
+     <Modal  title={"Favourite List"} open={isModalOpen} setOpen={setIsModalOpen}>
+      {favouriteList.map((item)=><Character key={item.id} item={item}>
+        <button className='icon'><MdDelete className='Dead' /></button>
+      </Character>)}
+     </Modal>
       <Toaster/>
-      <Header favouriteList={favouriteList} sort={sort} setSort={setSort} name={name} setName={setName} ResultLength={SortedData.length} />
+      <Header open={isModalOpen} setOpen={setIsModalOpen}  favouriteList={favouriteList} sort={sort} setSort={setSort} name={name} setName={setName} ResultLength={SortedData.length} />
       <div className='main'>
       <CharacterList isLoading={isLoading} characters={SortedData} onSelectId={handelSelectId}/>
 
