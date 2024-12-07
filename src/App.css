@@ -262,3 +262,11 @@ transform: rotate(180deg);
 background-color: var(--rose-500);
 border-radius: 40px;
 }
+.Dead{
+  color: var(--rose-600);
+  font-weight: 700;
+}
+.Alive{
+  color: var(--green-600);
+  font-weight: 700;
+}
