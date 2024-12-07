@@ -5,6 +5,7 @@ import Header from './components/Header';
 import CharacterList from './components/CharacterList';
 import CharacterDetail from './components/CharacterDetail';
 import axios from 'axios';
+import toast, { ToastBar, Toaster } from 'react-hot-toast';
 
 function App() {
 
@@ -20,7 +21,7 @@ function App() {
         const {data} = await axios("https://rickandmortyapi.com/api/character");
         setCharacters(data.results);
       } catch (err) {
-        console.log(err.response.data.error);
+        toast.error(err.response.data.error);
       } finally{
         setIsLoading(false);
       }
@@ -32,6 +33,7 @@ function App() {
 
   return (
     <div className='app container '>
+      <Toaster/>
       <Header ResultLength={characters.length} />
       <div className='main'>
       <CharacterList isLoading={isLoading} characters={characters}/>
