@@ -11,6 +11,7 @@ function App() {
 
   const [characters,setCharacters] = useState([]);
   const [isLoading,setIsLoading] = useState(false)
+  const [name,setName] = useState("");
 
 
   /// Fetch CharacterList
@@ -18,7 +19,7 @@ function App() {
     async function fetchData() {
       try {
         setIsLoading(true);
-        const {data} = await axios("https://rickandmortyapi.com/api/character");
+        const {data} = await axios(`https://rickandmortyapi.com/api/character?name=${name}`);
         setCharacters(data.results);
       } catch (err) {
         toast.error(err.response.data.error);
@@ -27,14 +28,14 @@ function App() {
       }
     }
     fetchData();
-  },[])
+  },[name]);
 
 
 
   return (
     <div className='app container '>
       <Toaster/>
-      <Header ResultLength={characters.length} />
+      <Header name={name} setName={setName} ResultLength={characters.length} />
       <div className='main'>
       <CharacterList isLoading={isLoading} characters={characters}/>
 
