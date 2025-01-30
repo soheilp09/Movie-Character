@@ -16,7 +16,7 @@ function App() {
   const [name,setName] = useState("");
   const [selectId,setSelectId] = useState("");
   const [sort,setSort] = useState("All");
-  const [favouriteList,setFavouriteList] = useState(()=> JSON.parse(localStorage.getItem("FAVOURITE")) || []);
+  const [favouriteList,setFavouriteList] = useState(()=> JSON.parse(localStorage.getItem("FAVOURITES")) || []);
   const [isModalOpen,setIsModalOpen] = useState(false)
 
 
@@ -39,7 +39,7 @@ function App() {
   
   // save Favourite list on localStorage
   useEffect(()=>{
-    localStorage.setItem("FAVOURITE",JSON.stringify(favouriteList))
+    localStorage.setItem("FAVOURITES",JSON.stringify(favouriteList))
   },[favouriteList]);
 
 
